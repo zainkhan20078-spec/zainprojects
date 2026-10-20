@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Creatives - Download as PNG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+        .ad-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .ad-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .ad-preview {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .ad-card {
+            text-align: center;
+        }
+        .ad-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .ad-info {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+        .download-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #0A0E1A;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .download-btn:hover {
+            background: #121628;
+        }
+        .instructions {
+            background: #e8f4fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #1976D2;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Powered Local Ads Manager</h1>
+        <p class="subtitle">High-quality PNG ad creatives for Facebook and Instagram campaigns</p>
+
+        <div class="ad-section">
+            <div class="ad-title">4:5 Feed Ad (800×1000)</div>
+            <div class="ad-preview">
+                <div class="ad-card">
+                    <img src="ad-feed-4x5.svg" alt="Feed Ad Creative" width="320" height="400">
+                    <div class="ad-info">London first. Your next customers next.</div>
+                    <a href="ad-feed-4x5.svg" download="ad-feed-4x5.svg" class="download-btn">Download SVG</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-section">
+            <div class="ad-title">9:16 Stories/Reels Ad (540×960)</div>
+            <div class="ad-preview">
+                <div class="ad-card">
+                    <img src="ad-stories-9x16.svg" alt="Stories Ad Creative" width="216" height="384">
+                    <div class="ad-info">Optimized for vertical format</div>
+                    <a href="ad-stories-9x16.svg" download="ad-stories-9x16.svg" class="download-btn">Download SVG</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>How to convert SVG to PNG</h3>
+            <ol>
+                <li><strong>Method 1 - Online converter:</strong> Visit <a href="https://cloudconvert.com/svg-to-png" target="_blank">cloudconvert.com/svg-to-png</a> or <a href="https://convertio.co/svg-png/" target="_blank">convertio.co/svg-png</a>, upload the SVG file, and download as PNG.</li>
+                <li><strong>Method 2 - Browser:</strong> Open the SVG file in Chrome/Edge, right-click → "Inspect", find the SVG element, right-click → "Capture node screenshot".</li>
+                <li><strong>Method 3 - Design tools:</strong> Open in Figma, Adobe Illustrator, or Canva, then export as PNG.</li>
+                <li><strong>Method 4 - Command line (if you have ImageMagick):</strong> Run <code>convert ad-feed-4x5.svg ad-feed-4x5.png</code></li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

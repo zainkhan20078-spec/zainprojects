@@ -1,0 +1,51 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0E1A"/>
+      <stop offset="50%" style="stop-color:#121628"/>
+      <stop offset="100%" style="stop-color:#0A0E1A"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="1000" fill="url(#bgGradient)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="725" cy="25" r="100" fill="#C6FF2D" opacity="0.03"/>
+  <circle cx="25" cy="950" r="75" fill="#C6FF2D" opacity="0.03"/>
+  <circle cx="400" cy="500" r="75" fill="#C6FF2D" opacity="0.03"/>
+
+  <!-- Accent lines -->
+  <line x1="40" y1="60" x2="760" y2="60" stroke="#C6FF2D" stroke-width="2" opacity="0.3"/>
+  <line x1="40" y1="940" x2="760" y2="940" stroke="#C6FF2D" stroke-width="2" opacity="0.3"/>
+
+  <!-- Logo -->
+  <rect x="30" y="30" width="80" height="30" rx="4" fill="rgba(255,255,255,0.1)"/>
+  <text x="40" y="52" font-family="Arial, sans-serif" font-weight="bold" font-size="14" fill="#FFFFFF">AI ADS</text>
+
+  <!-- Badge -->
+  <rect x="330" y="120" width="140" height="32" rx="16" fill="rgba(198,255,45,0.15)" stroke="rgba(198,255,45,0.3)" stroke-width="2"/>
+  <text x="400" y="141" font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#C6FF2D" text-anchor="middle" letter-spacing="2">LONDON FIRST</text>
+
+  <!-- Headline -->
+  <text x="400" y="200" font-family="Arial, sans-serif" font-weight="900" font-size="64" fill="#FFFFFF" text-anchor="middle">London first.</text>
+  <text x="400" y="280" font-family="Arial, sans-serif" font-weight="900" font-size="64" fill="#FFFFFF" text-anchor="middle">Your next</text>
+  <text x="400" y="360" font-family="Arial, sans-serif" font-weight="900" font-size="64" fill="#C6FF2D" text-anchor="middle">customers next.</text>
+
+  <!-- Subheadline -->
+  <text x="400" y="430" font-family="Arial, sans-serif" font-weight="500" font-size="20" fill="rgba(255,255,255,0.75)" text-anchor="middle">
+    <tspan x="400" dy="0">AI-assisted creative, local targeting, and clear weekly</tspan>
+    <tspan x="400" dy="28">reporting for your Facebook and Instagram campaigns.</tspan>
+  </text>
+
+  <!-- CTA Button -->
+  <rect x="300" y="520" width="200" height="56" rx="12" fill="#C6FF2D" filter="url(#glow)"/>
+  <text x="400" y="556" font-family="Arial, sans-serif" font-weight="800" font-size="18" fill="#0A0E1A" text-anchor="middle" letter-spacing="1">BOOK NOW</text>
+</svg>

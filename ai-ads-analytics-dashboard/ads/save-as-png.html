@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Ad Creatives as PNG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+        .ad-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .ad-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .ad-preview {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .ad-card {
+            text-align: center;
+        }
+        canvas {
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            max-width: 100%;
+            height: auto;
+        }
+        .ad-info {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+        }
+        .download-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 24px;
+            background: #0A0E1A;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .download-btn:hover {
+            background: #121628;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Powered Local Ads Manager</h1>
+        <p class="subtitle">High-quality PNG ad creatives - Click the download button to save</p>
+
+        <div class="ad-section">
+            <div class="ad-title">4:5 Feed Ad (800×1000)</div>
+            <div class="ad-preview">
+                <div class="ad-card">
+                    <canvas id="feedCanvas" width="800" height="1000"></canvas>
+                    <div class="ad-info">London first. Your next customers next.</div>
+                    <button class="download-btn" onclick="downloadFeed()">Download as PNG</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-section">
+            <div class="ad-title">9:16 Stories/Reels Ad (540×960)</div>
+            <div class="ad-preview">
+                <div class="ad-card">
+                    <canvas id="storiesCanvas" width="540" height="960"></canvas>
+                    <div class="ad-info">Optimized for vertical format</div>
+                    <button class="download-btn" onclick="downloadStories()">Download as PNG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function drawAd(canvas, width, height) {
+            const ctx = canvas.getContext('2d');
+
+            // Gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 0, height);
+            gradient.addColorStop(0, '#0A0E1A');
+            gradient.addColorStop(0.5, '#121628');
+            gradient.addColorStop(1, '#0A0E1A');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Decorative circles
+            ctx.fillStyle = 'rgba(198, 255, 45, 0.03)';
+            ctx.beginPath();
+            ctx.arc(width - 75, 25, 100, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(25, height - 50, 75, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(width / 2, height / 2, 75, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Accent lines
+            ctx.strokeStyle = 'rgba(198, 255, 45, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(40, 60);
+            ctx.lineTo(width - 40, 60);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(40, height - 60);
+            ctx.lineTo(width - 40, height - 60);
+            ctx.stroke();
+
+            // Logo
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.fillRect(30, 30, 80, 30);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 14px Arial, sans-serif';
+            ctx.fillText('AI ADS', 40, 50);
+
+            // Badge
+            const badgeWidth = 140;
+            const badgeHeight = 32;
+            const badgeX = (width - badgeWidth) / 2;
+            const badgeY = 120;
+
+            ctx.fillStyle = 'rgba(198, 255, 45, 0.15)';
+            ctx.strokeStyle = 'rgba(198, 255, 45, 0.3)';
+            ctx.lineWidth = 2;
+            roundRect(ctx, badgeX, badgeY, badgeWidth, badgeHeight, 16);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#C6FF2D';
+            ctx.font = 'bold 12px Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('LONDON FIRST', width / 2, badgeY + 21);
+
+            // Headline
+            ctx.textAlign = 'center';
+            const headlineSize = Math.floor(width * 0.12);
+            ctx.font = `900 ${headlineSize}px Arial, sans-serif`;
+
+            let headlineY = 180;
+            const headlines = ['London first.', 'Your next', 'customers next.'];
+
+            headlines.forEach(line => {
+                if (line.includes('customers')) {
+                    ctx.fillStyle = '#C6FF2D';
+                } else {
+                    ctx.fillStyle = '#FFFFFF';
+                }
+                ctx.fillText(line, width / 2, headlineY);
+                headlineY += headlineSize * 1.1;
+            });
+
+            // Subheadline
+            const subSize = Math.floor(width * 0.035);
+            ctx.font = `500 ${subSize}px Arial, sans-serif`;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+
+            const subText = 'AI-assisted creative, local targeting, and clear weekly reporting for your Facebook and Instagram campaigns.';
+            const words = subText.split(' ');
+            let lines = [];
+            let currentLine = '';
+
+            words.forEach(word => {
+                const testLine = currentLine + word + ' ';
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > width - 80) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine = testLine;
+                }
+            });
+            lines.push(currentLine.trim());
+
+            let subY = headlineY + 30;
+            lines.forEach(line => {
+                ctx.fillText(line, width / 2, subY);
+                subY += subSize * 1.4;
+            });
+
+            // CTA Button
+            const ctaWidth = 200;
+            const ctaHeight = 56;
+            const ctaX = (width - ctaWidth) / 2;
+            const ctaY = subY + 30;
+
+            ctx.fillStyle = '#C6FF2D';
+            roundRect(ctx, ctaX, ctaY, ctaWidth, ctaHeight, 12);
+            ctx.fill();
+
+            ctx.fillStyle = '#0A0E1A';
+            ctx.font = `800 ${Math.floor(width * 0.035)}px Arial, sans-serif`;
+            ctx.fillText('BOOK NOW', width / 2, ctaY + 36);
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function downloadFeed() {
+            const canvas = document.getElementById('feedCanvas');
+            const link = document.createElement('a');
+            link.download = 'ad-feed-4x5.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function downloadStories() {
+            const canvas = document.getElementById('storiesCanvas');
+            const link = document.createElement('a');
+            link.download = 'ad-stories-9x16.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Draw ads on load
+        window.onload = function() {
+            drawAd(document.getElementById('feedCanvas'), 800, 1000);
+            drawAd(document.getElementById('storiesCanvas'), 540, 960);
+        };
+    </script>
+</body>
+</html>
