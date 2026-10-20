@@ -1,0 +1,58 @@
+name: Repair extension project folder layout
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/repair-extension-layout.yml
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Restore project directory structure
+        run: |
+          python3 - <<'PY'
+          import json, shutil
+          from pathlib import Path, PurePosixPath
+          project = Path('extension-architecture-and-data-model')
+          paths = json.loads(r'''[".github/workflows/ci.yml",".gitignore",".prettierrc.json","eslint.config.js","index.html","LICENSE","manifest.json","package.json","package-lock.json","PRIVACY.md","public/captcha-notification.svg","public/icon-128.png","public/icon-16.png","public/icon-32.png","public/icon-48.png","public/manifest.json","README.md","scripts/validate-production.mjs","src/__tests__/aiRouter.test.ts","src/__tests__/astToDocs.test.ts","src/__tests__/captchaSolver.test.ts","src/__tests__/dataBackup.test.ts","src/__tests__/db.test.ts","src/__tests__/documentBlueprint.test.ts","src/__tests__/fileIngestor.test.ts","src/__tests__/googleDocsApi.test.ts","src/__tests__/googleSearch.test.ts","src/__tests__/helpers/chromeStorageMock.ts","src/__tests__/helpers/resetDb.ts","src/__tests__/humanSimulator.test.ts","src/__tests__/keyPool.test.ts","src/__tests__/MacroEngine.test.ts","src/__tests__/MathAST.test.ts","src/__tests__/mathEditorTemplates.test.ts","src/__tests__/mistakeEngine.test.ts","src/__tests__/naturalCommandParser.test.ts","src/__tests__/notebookSnapshot.test.ts","src/__tests__/notebookSync.integration.test.ts","src/__tests__/productionReadiness.test.ts","src/__tests__/protectedSpans.test.ts","src/__tests__/stylePass.test.ts","src/__tests__/syncQueue.test.ts","src/__tests__/typewriterEngine.test.ts","src/aiRouter.ts","src/App.tsx","src/astToDocs.ts","src/background.ts","src/captchaSolver.ts","src/components/AIChat.tsx","src/components/AISearchWorkspace.tsx","src/components/ContextualMiniPopup.tsx","src/components/DyslexiaTrainer.tsx","src/components/FileDropZone.tsx","src/components/HelpTab.tsx","src/components/MacroEngine.ts","src/components/ManualToolbar.tsx","src/components/MathAST.ts","src/components/MathEditor.tsx","src/components/mathEditorDom.ts","src/components/mathEditorTemplates.ts","src/components/NotebookSidebar.tsx","src/components/NotebookView.tsx","src/components/SyncStatusIndicator.tsx","src/components/TabBar.tsx","src/components/TabSettings.tsx","src/components/WorkspaceHeader.tsx","src/contentScript.ts","src/dataBackup.ts","src/db.ts","src/deepDocsExecutor.ts","src/documentBlueprint.ts","src/domExtractor.ts","src/fileIngestor.ts","src/googleDocsApi.ts","src/googleSearch.ts","src/hotkeyRegistry.ts","src/humanSimulator.ts","src/index.css","src/keyPool.ts","src/lib/notebookOps.ts","src/main.tsx","src/mistakeEngine.ts","src/naturalCommandParser.ts","src/notebookInjector.ts","src/notebookSnapshot.ts","src/notebookSync.ts","src/protectedSpans.ts","src/screenReader.ts","src/stylePass.ts","src/syncQueue.ts","src/typewriterEngine.ts","src/utils/cn.ts","src/webAgent.ts","tailwind.config.js","tsconfig.json","vite.config.ts","vitest.config.ts"]''')
+          for rel in paths:
+              target = project / Path(*PurePosixPath(rel).parts)
+              if target.is_file():
+                  continue
+              flat = project / PurePosixPath(rel).name
+              if not flat.is_file():
+                  raise SystemExit(f'Missing uploaded source file for {rel}')
+              target.parent.mkdir(parents=True, exist_ok=True)
+              shutil.move(str(flat), str(target))
+          missing = [rel for rel in paths if not (project / Path(*PurePosixPath(rel).parts)).is_file()]
+          if missing:
+              raise SystemExit('Missing source paths: ' + ', '.join(missing))
+          index = Path('README.md')
+          text = index.read_text(encoding='utf-8')
+          link = './extension-architecture-and-data-model/'
+          if link not in text:
+              text = text.rstrip() + '\n\n- [Extension Architecture and Data Model](./extension-architecture-and-data-model/)\n'
+              index.write_text(text, encoding='utf-8')
+          PY
+      - name: Verify project
+        working-directory: extension-architecture-and-data-model
+        run: |
+          npm ci
+          npm run lint
+          npm run typecheck
+          npm test
+          npm run build
+      - name: Commit corrected layout
+        run: |
+          rm .github/workflows/repair-extension-layout.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A extension-architecture-and-data-model README.md .github/workflows/repair-extension-layout.yml
+          git commit -m 'Restore extension project directory structure'
+          git push origin HEAD:main
