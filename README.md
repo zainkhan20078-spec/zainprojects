@@ -7,3 +7,5 @@ Files that contain their own license or attribution notice remain subject to tho
 ## Projects
 
 - [Enterprise Transportation Backend Architecture](./enterprise-transportation-backend-architecture/) ([ZIP archive](./enterprise-transportation-backend-architecture.zip))
+
+- [Extension Architecture and Data Model](./extension-architecture-and-data-model/)
