@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Local Ads Manager - Ad Creative</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            gap: 40px;
+        }
+
+        .ad-container {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+
+        .label {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* 4:5 Feed Ad */
+        .ad-feed {
+            width: 400px;
+            height: 500px;
+            background: linear-gradient(135deg, #0A0E1A 0%, #121628 50%, #0A0E1A 100%);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        /* 9:16 Stories/Reels Ad */
+        .ad-stories {
+            width: 270px;
+            height: 480px;
+            background: linear-gradient(135deg, #0A0E1A 0%, #121628 50%, #0A0E1A 100%);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        /* Decorative elements */
+        .circle-bg {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.03;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: #C6FF2D;
+            top: -100px;
+            right: -100px;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: #C6FF2D;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            background: #C6FF2D;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* London skyline silhouette */
+        .skyline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            opacity: 0.08;
+            background: linear-gradient(to top, #C6FF2D 0%, transparent 100%);
+        }
+
+        /* Content */
+        .ad-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(198, 255, 45, 0.15);
+            border: 1px solid rgba(198, 255, 45, 0.3);
+            color: #C6FF2D;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .headline {
+            font-size: 42px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        .headline-feed {
+            font-size: 48px;
+        }
+
+        .headline-stories {
+            font-size: 32px;
+        }
+
+        .headline span {
+            color: #C6FF2D;
+        }
+
+        .subheadline {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 320px;
+        }
+
+        .subheadline-feed {
+            font-size: 16px;
+        }
+
+        .subheadline-stories {
+            font-size: 13px;
+        }
+
+        .cta-button {
+            background: #C6FF2D;
+            color: #0A0E1A;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(198, 255, 45, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(198, 255, 45, 0.4);
+        }
+
+        .cta-button-feed {
+            font-size: 16px;
+            padding: 18px 36px;
+        }
+
+        .cta-button-stories {
+            font-size: 13px;
+            padding: 14px 28px;
+        }
+
+        /* Accent lines */
+        .accent-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #C6FF2D, transparent);
+            opacity: 0.3;
+        }
+
+        .accent-line-1 {
+            top: 60px;
+            left: 40px;
+            right: 40px;
+        }
+
+        .accent-line-2 {
+            bottom: 60px;
+            left: 40px;
+            right: 40px;
+        }
+
+        /* Logo placeholder */
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.1em;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-stories {
+            top: 20px;
+            left: 20px;
+            padding: 8px 12px;
+            font-size: 9px;
+        }
+
+        /* Info text */
+        .info {
+            max-width: 600px;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container">
+        <div class="label">4:5 Feed Ad (400×500)</div>
+        <div class="ad-feed" id="ad-feed">
+            <div class="circle-bg circle-1"></div>
+            <div class="circle-bg circle-2"></div>
+            <div class="circle-bg circle-3"></div>
+            <div class="skyline"></div>
+            <div class="accent-line accent-line-1"></div>
+            <div class="accent-line accent-line-2"></div>
+            <div class="logo">AI ADS</div>
+            <div class="ad-content">
+                <div class="badge">London First</div>
+                <h1 class="headline headline-feed">
+                    London first.<br/>
+                    Your next<br/>
+                    <span>customers next.</span>
+                </h1>
+                <p class="subheadline subheadline-feed">
+                    AI-assisted creative, local targeting, and clear weekly reporting for your Facebook and Instagram campaigns.
+                </p>
+                <button class="cta-button cta-button-feed">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ad-container">
+        <div class="label">9:16 Stories/Reels Ad (270×480)</div>
+        <div class="ad-stories" id="ad-stories">
+            <div class="circle-bg circle-1" style="width: 200px; height: 200px; top: -80px; right: -80px;"></div>
+            <div class="circle-bg circle-2" style="width: 150px; height: 150px; bottom: -40px; left: -40px;"></div>
+            <div class="circle-bg circle-3" style="width: 100px; height: 100px;"></div>
+            <div class="skyline" style="height: 80px;"></div>
+            <div class="accent-line accent-line-1" style="top: 50px; left: 20px; right: 20px;"></div>
+            <div class="accent-line accent-line-2" style="bottom: 50px; left: 20px; right: 20px;"></div>
+            <div class="logo logo-stories">AI ADS</div>
+            <div class="ad-content">
+                <div class="badge" style="padding: 6px 12px; font-size: 10px; margin-bottom: 20px;">London First</div>
+                <h1 class="headline headline-stories">
+                    London first.<br/>
+                    Your next<br/>
+                    <span>customers next.</span>
+                </h1>
+                <p class="subheadline subheadline-stories">
+                    AI-assisted creative, local targeting, and clear weekly reporting for your Facebook and Instagram campaigns.
+                </p>
+                <button class="cta-button cta-button-stories">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        <strong>How to save as PNG:</strong><br/>
+        1. Right-click on each ad creative<br/>
+        2. Select "Inspect" or press F12<br/>
+        3. Right-click on the ad element in DevTools<br/>
+        4. Select "Capture node screenshot" or use a screenshot tool<br/>
+        5. Save as PNG<br/><br/>
+        Alternatively, use a browser extension like "Full Page Screen Capture" to save the entire element as an image.
+    </div>
+</body>
+</html>
