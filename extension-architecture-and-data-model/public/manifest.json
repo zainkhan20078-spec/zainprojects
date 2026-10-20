@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "2 Bachillerato Study Extension",
+  "version": "0.1.0",
+  "description": "Local-first offline-capable study and automation tool.",
+  "minimum_chrome_version": "120",
+  "offline_enabled": true,
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "activeTab", "sidePanel", "identity", "tabs", "alarms", "notifications"],
+  "commands": {
+    "screen-capture-read": {
+      "suggested_key": {
+        "default": "Alt+S"
+      },
+      "description": "Capture visible screen and run OCR"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "host_permissions": ["<all_urls>", "https://www.googleapis.com/*", "https://docs.googleapis.com/*"],
+  "oauth2": {
+    "client_id": "403347663733-f0t7ipel1vd71lmf8dmqotu7eb727qqe.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents",
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/drive.readonly"
+    ]
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "options_page": "index.html",
+  "action": {
+    "default_icon": {
+      "16": "icon-16.png",
+      "32": "icon-32.png",
+      "48": "icon-48.png"
+    },
+    "default_title": "Open Study Extension"
+  }
+}
